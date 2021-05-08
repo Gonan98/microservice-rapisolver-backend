@@ -1,0 +1,41 @@
+#Application Configuration
+server:
+  port: 8092
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  # ===============================
+  # DB
+  # ===============================
+  datasource:
+    url: jdbc:postgresql://localhost/mc_rapisolver_user
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: admin
+
+  # ===============================
+  # JPA / HIBERNATE
+  # ===============================
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8099/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
