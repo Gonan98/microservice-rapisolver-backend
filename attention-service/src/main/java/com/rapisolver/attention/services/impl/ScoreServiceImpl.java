@@ -43,6 +43,7 @@ public class ScoreServiceImpl implements ScoreService {
             score.setStatus(Status.CREATED);
             score.setCreatedAt(new Date());
             score.setUserAttention(userAttentionDB);
+            score = repository.save(score);
             return mapper.map(score, ScoreDTO.class);
         } catch (Exception e) {
             throw new InternalServerErrorException("CREATE_SCORE_ERROR");

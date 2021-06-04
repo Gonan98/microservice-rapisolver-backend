@@ -62,6 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
             categoryDB.setName(t.getName());
             categoryDB.setDescription(t.getDescription());
             categoryDB.setStatus(Status.UPDATED);
+            categoryDB = categoryRepository.save(categoryDB);
             return mapper.map(categoryDB, CategoryDTO.class);
         } catch (Exception e) {
             throw new InternalServerErrorException("UPDATE_CATEGORY_ERROR");
