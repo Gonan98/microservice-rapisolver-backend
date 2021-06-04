@@ -1,11 +1,14 @@
 package com.rapisolver.user.entities;
 
+import com.rapisolver.user.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "roles")
@@ -25,4 +28,13 @@ public class Role {
     @Column(name = "can_publish", nullable = false)
     private boolean canPublish;
 
+    @Column(nullable = false)
+    private Status status;
+
+    @Column(name = "created_at", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    private List<User> users;
 }

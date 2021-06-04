@@ -1,7 +1,6 @@
 package com.rapisolver.user.services.impl;
 
 import com.rapisolver.user.dtos.RoleDTO;
-import com.rapisolver.user.exceptions.RapisolverException;
 import com.rapisolver.user.repositories.RoleRepository;
 import com.rapisolver.user.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class RoleServiceImpl implements RoleService {
     private RoleRepository roleRepository;
 
     @Override
-    public List<RoleDTO> getAllRoles() throws RapisolverException {
+    public List<RoleDTO> getAllRoles() throws RuntimeException {
         return roleRepository.findAll().stream().map(role -> {
             RoleDTO roleDTO = new RoleDTO();
             roleDTO.setId(role.getId());
