@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface RoleService {
 
+    RoleDTO getById(Long id) throws RuntimeException;
     List<RoleDTO> getAllRoles() throws RuntimeException;
 
 }
