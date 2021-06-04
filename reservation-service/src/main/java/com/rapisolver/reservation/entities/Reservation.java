@@ -1,5 +1,7 @@
 package com.rapisolver.reservation.entities;
 
+import com.rapisolver.reservation.model.User;
+import com.rapisolver.reservation.model.UserAttention;
 import com.rapisolver.reservation.util.ReservationStatus;
 import com.rapisolver.reservation.util.Status;
 import lombok.AllArgsConstructor;
@@ -40,6 +42,12 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
+
+    @Transient
+    private UserAttention userAttention;
+
+    @Transient
+    private User user;
 
     /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_attention_id", nullable = false)
