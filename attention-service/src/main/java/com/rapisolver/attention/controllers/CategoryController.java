@@ -1,10 +1,7 @@
 package com.rapisolver.attention.controllers;
 
-import com.rapisolver.attention.dtos.AttentionDTO;
 import com.rapisolver.attention.dtos.CategoryDTO;
-import com.rapisolver.attention.dtos.CreateAttentionDTO;
 import com.rapisolver.attention.dtos.CreateCategoryDTO;
-import com.rapisolver.attention.services.AttentionService;
 import com.rapisolver.attention.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
