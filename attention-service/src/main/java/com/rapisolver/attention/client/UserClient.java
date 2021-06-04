@@ -1,8 +1,7 @@
-package com.rapisolver.reservation.client;
+package com.rapisolver.attention.client;
 
-import com.rapisolver.reservation.controllers.RapisolverResponse;
-import com.rapisolver.reservation.model.Role;
-import com.rapisolver.reservation.model.User;
+import com.rapisolver.attention.controllers.RapisolverResponse;
+import com.rapisolver.attention.models.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

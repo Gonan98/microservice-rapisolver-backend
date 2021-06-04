@@ -2,6 +2,7 @@ package com.rapisolver.reservation.client;
 
 import com.rapisolver.reservation.controllers.RapisolverResponse;
 import com.rapisolver.reservation.model.Score;
+import com.rapisolver.reservation.model.UserAttention;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface UserAttentionClient {
 
     @GetMapping("/{id}")
-    RapisolverResponse<Score> getUserAttention(@PathVariable Long id);
+    RapisolverResponse<UserAttention> getUserAttention(@PathVariable Long id);
 
 }
