@@ -1,17 +1,16 @@
 package com.rapisolver.user.services.impl;
 
 import com.rapisolver.user.dtos.CreateUserDTO;
-import com.rapisolver.user.dtos.RoleDTO;
 import com.rapisolver.user.dtos.UserDTO;
 import com.rapisolver.user.entities.Role;
 import com.rapisolver.user.entities.User;
 import com.rapisolver.user.enums.Status;
 import com.rapisolver.user.exceptions.InternalServerErrorException;
-import com.rapisolver.user.exceptions.RapisolverException;
+import com.rapisolver.user.exceptions.NotFoundException;
 import com.rapisolver.user.repositories.RoleRepository;
 import com.rapisolver.user.repositories.UserRepository;
 import com.rapisolver.user.services.UserService;
-import com.sun.jersey.api.NotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +27,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
-    public UserDTO create(CreateUserDTO createUserDTO) throws RapisolverException {
+    public UserDTO create(CreateUserDTO createUserDTO) throws RuntimeException {
 
         Role role = roleRepository.findById(1L).orElseThrow(() -> new NotFoundException("ROLE_NOT_FOUND"));
 
@@ -46,29 +48,27 @@ public class UserServiceImpl implements UserService {
 
         try {
             user = userRepository.save(user);
-            return mappedToDTO(user);
-
+            return modelMapper.map(user, UserDTO.class);
         } catch (Exception e) {
             throw new InternalServerErrorException("CREATE_USER_ERROR");
         }
     }
 
     @Override
-    public List<UserDTO> getAll() throws RapisolverException {
+    public List<UserDTO> getAll() throws RuntimeException {
         List<User> users = userRepository.findAll();
-        return users.stream().map(this::mappedToDTO).collect(Collectors.toList());
+        return users.stream().map(u -> modelMapper.map(u, UserDTO.class)).collect(Collectors.toList());
     }
 
     @Override
-    public UserDTO getById(Long id) throws RapisolverException {
+    public UserDTO getById(Long id) throws RuntimeException {
         User userDB = userRepository.findById(id).orElseThrow(() -> new NotFoundException("USER_NOT_FOUND"));
-        return mappedToDTO(userDB);
+        return modelMapper.map(userDB, UserDTO.class);
     }
 
     @Override
-    public String deleteById(Long id) throws RapisolverException {
+    public String deleteById(Long id) throws RuntimeException {
         User userDB = userRepository.findById(id).orElseThrow(() -> new NotFoundException("USER_NOT_FOUND"));
-
         try {
             userDB.setStatus(Status.DELETED);
             userRepository.save(userDB);
@@ -76,27 +76,5 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             throw new InternalServerErrorException("DELETE_USER_ERROR");
         }
-    }
-
-    private UserDTO mappedToDTO(User user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setFirstname(user.getFirstname());
-        userDTO.setLastname(user.getLastname());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setPhone(user.getPhone());
-        userDTO.setStatus(user.getStatus());
-        userDTO.setCreatedAt(user.getCreatedAt());
-        userDTO.setBirthdate(user.getBirthdate());
-
-        RoleDTO roleDTO = new RoleDTO();
-        roleDTO.setId(user.getRole().getId());
-        roleDTO.setName(user.getRole().getName());
-        roleDTO.setCanPublish(user.getRole().isCanPublish());
-
-        userDTO.setRole(roleDTO);
-
-        return userDTO;
     }
 }
