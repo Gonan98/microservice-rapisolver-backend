@@ -3,7 +3,7 @@ package com.rapisolver.attention.models;
 import lombok.Data;
 
 @Data
-public class Role {
+public class RoleDTO {
     private Long id;
     private String name;
     private boolean canPublish;
