@@ -3,8 +3,8 @@ package com.rapisolver.reservation.model;
 import lombok.Data;
 
 @Data
-public class Role {
+public class CategoryDTO {
     private Long id;
     private String name;
-    private boolean canPublish;
+    private String description;
 }

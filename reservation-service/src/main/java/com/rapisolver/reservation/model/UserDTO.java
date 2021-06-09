@@ -1,11 +1,11 @@
-package com.rapisolver.attention.models;
+package com.rapisolver.reservation.model;
 
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class User {
+public class UserDTO {
     private Long id;
     private String firstname;
     private String lastname;
@@ -13,5 +13,5 @@ public class User {
     private String password;
     private String phone;
     private Date birthdate;
-    private Role role;
+    private RoleDTO role;
 }

@@ -33,6 +33,6 @@ public class Category {
     @Column(nullable = false)
     private Status status;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "attention")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private List<Attention> attentions;
 }

@@ -1,11 +1,14 @@
 package com.rapisolver.attention.services.impl;
 
+import com.rapisolver.attention.client.UserClient;
 import com.rapisolver.attention.dtos.CreateUserAttentionDTO;
 import com.rapisolver.attention.dtos.UserAttentionDTO;
 import com.rapisolver.attention.entities.Attention;
 import com.rapisolver.attention.entities.UserAttention;
+import com.rapisolver.attention.exceptions.BadRequestException;
 import com.rapisolver.attention.exceptions.InternalServerErrorException;
 import com.rapisolver.attention.exceptions.NotFoundException;
+import com.rapisolver.attention.models.UserDTO;
 import com.rapisolver.attention.repository.AttentionRepository;
 import com.rapisolver.attention.repository.UserAttentionRepository;
 import com.rapisolver.attention.services.UserAttentionService;
@@ -26,6 +29,9 @@ public class UserAttentionServiceImpl implements UserAttentionService {
     private ModelMapper mapper;
 
     @Autowired
+    private UserClient userClient;
+
+    @Autowired
     private AttentionRepository attentionRepository;
 
     @Autowired
@@ -34,6 +40,9 @@ public class UserAttentionServiceImpl implements UserAttentionService {
     @Transactional
     @Override
     public UserAttentionDTO create(CreateUserAttentionDTO t) throws RuntimeException {
+
+        if (!userClient.getUser(t.getUserId()).getData().getRole().isCanPublish()) throw new BadRequestException("El usuario no es un proveedor");
+
         Attention attentionDB = attentionRepository.findById(t.getAttentionId()).orElseThrow(() -> new NotFoundException("ATTENTION_NOT_FOUND"));
 
         try {
@@ -42,6 +51,7 @@ public class UserAttentionServiceImpl implements UserAttentionService {
             userAttention.setPrice(t.getPrice());
             userAttention.setAttention(attentionDB);
             userAttention.setStatus(Status.CREATED);
+            userAttention.setUserId(t.getUserId());
             userAttention.setCreatedAt(new Date());
             userAttention = repository.save(userAttention);
             return mapper.map(userAttention, UserAttentionDTO.class);

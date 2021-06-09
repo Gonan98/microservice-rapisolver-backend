@@ -1,5 +1,6 @@
 package com.rapisolver.attention.entities;
 
+import com.rapisolver.attention.models.UserDTO;
 import com.rapisolver.attention.util.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,12 @@ public class Score {
 
     @Column(nullable = false)
     private Status status;
+
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
+
+    @Transient
+    private UserDTO userDTO;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_attention_id", nullable = false)

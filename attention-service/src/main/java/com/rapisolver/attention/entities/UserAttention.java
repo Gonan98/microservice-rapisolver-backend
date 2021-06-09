@@ -1,5 +1,6 @@
 package com.rapisolver.attention.entities;
 
+import com.rapisolver.attention.models.UserDTO;
 import com.rapisolver.attention.util.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,6 +38,12 @@ public class UserAttention {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attention_id", nullable = false)
     private Attention attention;
+
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
+
+    @Transient
+    private UserDTO user;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userAttention")
     private List<Score> scores;

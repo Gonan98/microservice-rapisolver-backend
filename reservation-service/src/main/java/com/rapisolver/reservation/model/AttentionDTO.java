@@ -3,8 +3,8 @@ package com.rapisolver.reservation.model;
 import lombok.Data;
 
 @Data
-public class Category {
+public class AttentionDTO {
     private Long id;
     private String name;
-    private String description;
+    private CategoryDTO category;
 }

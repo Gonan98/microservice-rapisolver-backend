@@ -1,7 +1,7 @@
 package com.rapisolver.reservation.entities;
 
-import com.rapisolver.reservation.model.User;
-import com.rapisolver.reservation.model.UserAttention;
+import com.rapisolver.reservation.model.UserDTO;
+import com.rapisolver.reservation.model.UserAttentionDTO;
 import com.rapisolver.reservation.util.ReservationStatus;
 import com.rapisolver.reservation.util.Status;
 import lombok.AllArgsConstructor;
@@ -43,11 +43,17 @@ public class Reservation {
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
-    @Transient
-    private UserAttention userAttention;
+    @Column(name = "user_attention_id", nullable = false)
+    private Long userAttentionId;
+
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Transient
-    private User user;
+    private UserAttentionDTO userAttention;
+
+    @Transient
+    private UserDTO user;
 
     /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_attention_id", nullable = false)
