@@ -1,11 +1,9 @@
 package com.rapisolver.user.dtos;
 
-import com.rapisolver.user.entities.Role;
 import com.rapisolver.user.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.Date;
 
 @Getter
