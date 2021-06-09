@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public RapisolverResponse<String> deleteById(@PathVariable Long id) throws RuntimeException {
         return new RapisolverResponse<>(200,"OK", userService.deleteById(id));
     }

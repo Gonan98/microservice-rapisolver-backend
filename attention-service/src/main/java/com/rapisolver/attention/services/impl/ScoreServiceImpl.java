@@ -1,5 +1,6 @@
 package com.rapisolver.attention.services.impl;
 
+import com.rapisolver.attention.client.UserClient;
 import com.rapisolver.attention.dtos.CreateScoreDTO;
 import com.rapisolver.attention.dtos.ScoreDTO;
 import com.rapisolver.attention.entities.Score;
@@ -29,11 +30,17 @@ public class ScoreServiceImpl implements ScoreService {
     private UserAttentionRepository userAttentionRepository;
 
     @Autowired
+    private UserClient userClient;
+
+    @Autowired
     private ScoreRepository repository;
 
     @Transactional
     @Override
     public ScoreDTO create(CreateScoreDTO t) throws RuntimeException {
+
+        if(userClient.getUser(t.getUserId()).getData() == null) throw new NotFoundException("USER_NOT_FOUND");
+
         UserAttention userAttentionDB = userAttentionRepository.findById(t.getUserAttentionId()).orElseThrow(() -> new NotFoundException("USER_ATTENTION_NOT_FOUND"));
 
         try {

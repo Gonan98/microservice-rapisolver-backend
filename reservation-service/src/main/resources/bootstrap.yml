@@ -1,6 +1,6 @@
 spring:
   application:
-    name: shopping-service
+    name: reservation-service
   cloud:
     config:
       uri: http://localhost:8081
@@ -9,4 +9,4 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:8086
+        url: http://localhost:8082
