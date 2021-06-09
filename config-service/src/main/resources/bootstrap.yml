@@ -6,10 +6,10 @@ spring:
       server:
         git:
           uri: https://github.com/Gonan98/microservice-rapisolver-backend.git
-          searchPaths: config-data
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
           default-label: "master"
+          search-paths: config-data
   security:
     user:
       name: root
