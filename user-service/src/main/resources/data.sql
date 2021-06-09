@@ -1,2 +1,2 @@
-INSERT INTO roles (id,name,can_publish) VALUES (1,'ROLE_CUSTOMER',false);
-INSERT INTO roles (id,name,can_publish) VALUES (2,'ROLE_SUPPLIER',true);
+INSERT INTO roles (id,name,can_publish,status,created_at) VALUES (1,'ROLE_CUSTOMER',false,0,CURRENT_TIMESTAMP);
+INSERT INTO roles (id,name,can_publish,status,created_at) VALUES (2,'ROLE_SUPPLIER',true,0,CURRENT_TIMESTAMP);
