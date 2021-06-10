@@ -1,7 +1,6 @@
 package com.rapisolver.attention.entities;
 
 import com.rapisolver.attention.models.UserDTO;
-import com.rapisolver.attention.util.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,8 +31,8 @@ public class UserAttention {
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
-    @Column(nullable = false)
-    private Status status;
+    @Column(nullable = false, length = 10)
+    private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attention_id", nullable = false)

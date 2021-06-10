@@ -30,8 +30,8 @@ public class Score {
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
-    @Column(nullable = false)
-    private Status status;
+    @Column(nullable = false, length = 10)
+    private String status;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;

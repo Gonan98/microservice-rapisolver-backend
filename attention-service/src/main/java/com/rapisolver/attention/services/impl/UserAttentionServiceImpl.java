@@ -50,7 +50,7 @@ public class UserAttentionServiceImpl implements UserAttentionService {
             userAttention.setDetail(t.getDetail());
             userAttention.setPrice(t.getPrice());
             userAttention.setAttention(attentionDB);
-            userAttention.setStatus(Status.CREATED);
+            userAttention.setStatus(String.valueOf(Status.CREATED));
             userAttention.setUserId(t.getUserId());
             userAttention.setCreatedAt(new Date());
             userAttention = repository.save(userAttention);
@@ -82,7 +82,7 @@ public class UserAttentionServiceImpl implements UserAttentionService {
             userAttentionDB.setDetail(t.getDetail());
             userAttentionDB.setPrice(t.getPrice());
             userAttentionDB.setAttention(attentionDB);
-            userAttentionDB.setStatus(Status.UPDATED);
+            userAttentionDB.setStatus(String.valueOf(Status.UPDATED));
             userAttentionDB = repository.save(userAttentionDB);
             return mapper.map(userAttentionDB, UserAttentionDTO.class);
         } catch (Exception e) {
@@ -92,13 +92,13 @@ public class UserAttentionServiceImpl implements UserAttentionService {
 
     @Transactional
     @Override
-    public String deleteById(Long aLong) throws RuntimeException {
+    public UserAttentionDTO deleteById(Long aLong) throws RuntimeException {
         UserAttention userAttentionDB = repository.findById(aLong).orElseThrow(() -> new NotFoundException("USER_ATTENTION_NOT_FOUND"));
 
         try {
-            userAttentionDB.setStatus(Status.DELETED);
-            repository.save(userAttentionDB);
-            return "Atencion del usuario eliminada correctamente";
+            userAttentionDB.setStatus(String.valueOf(Status.DELETED));
+            userAttentionDB = repository.save(userAttentionDB);
+            return mapper.map(userAttentionDB, UserAttentionDTO.class);
         } catch (Exception e) {
             throw new InternalServerErrorException("DELETE_USER_ATTENTION_ERROR");
         }

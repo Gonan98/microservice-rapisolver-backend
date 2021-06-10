@@ -18,13 +18,13 @@ public class RoleController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public RapisolverResponse<List<RoleDTO>> getAll() throws RuntimeException {
-        return new RapisolverResponse<>(200,"OK","Listado de roles", roleService.getAllRoles());
+        return new RapisolverResponse<>(200,"Listado de roles", roleService.getAllRoles());
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public RapisolverResponse<RoleDTO> getById(@PathVariable Long id) throws RuntimeException {
-        return new RapisolverResponse<>(200,"OK","Rol encontrado", roleService.getById(id));
+        return new RapisolverResponse<>(200,"Rol encontrado", roleService.getById(id));
     }
 
 }

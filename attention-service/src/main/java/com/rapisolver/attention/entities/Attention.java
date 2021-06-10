@@ -27,8 +27,8 @@ public class Attention {
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
-    @Column(nullable = false)
-    private Status status;
+    @Column(nullable = false, length = 10)
+    private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)

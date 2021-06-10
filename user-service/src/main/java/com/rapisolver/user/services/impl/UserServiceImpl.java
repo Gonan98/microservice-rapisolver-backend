@@ -5,6 +5,7 @@ import com.rapisolver.user.dtos.UserDTO;
 import com.rapisolver.user.entities.Role;
 import com.rapisolver.user.entities.User;
 import com.rapisolver.user.enums.Status;
+import com.rapisolver.user.exceptions.BadRequestException;
 import com.rapisolver.user.exceptions.InternalServerErrorException;
 import com.rapisolver.user.exceptions.NotFoundException;
 import com.rapisolver.user.repositories.RoleRepository;
@@ -33,11 +34,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO create(CreateUserDTO createUserDTO) throws RuntimeException {
 
-        Role role = roleRepository.findById(1L).orElseThrow(() -> new NotFoundException("ROLE_NOT_FOUND"));
+        Role role = roleRepository.findByName("ROLE_CUSTOMER").orElseThrow(() -> new NotFoundException("ROLE_CUSTOMER_NOT_FOUND"));
 
         User user = new User();
         user.setCreatedAt(new Date());
-        user.setStatus(Status.CREATED);
+        user.setStatus(String.valueOf(Status.CREATED));
         user.setFirstname(createUserDTO.getFirstname());
         user.setLastname(createUserDTO.getLastname());
         user.setEmail(createUserDTO.getEmail());
@@ -67,14 +68,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String deleteById(Long id) throws RuntimeException {
+    public UserDTO deleteById(Long id) throws RuntimeException {
         User userDB = userRepository.findById(id).orElseThrow(() -> new NotFoundException("USER_NOT_FOUND"));
         try {
-            userDB.setStatus(Status.DELETED);
-            userRepository.save(userDB);
-            return "Usuario eliminado";
+            userDB.setStatus(String.valueOf(Status.DELETED));
+            userDB = userRepository.save(userDB);
+            return modelMapper.map(userDB, UserDTO.class);
         } catch (Exception e) {
             throw new InternalServerErrorException("DELETE_USER_ERROR");
+        }
+    }
+
+    @Override
+    public String buySubscription(Long id) throws RuntimeException {
+        User userDB = userRepository.findById(id).orElseThrow(() -> new NotFoundException("USER_NOT_FOUND"));
+
+        if (userDB.getRole().isCanPublish())
+            throw new BadRequestException("USER_ALREADY_HAS_A_SUBSCRIPTION");
+
+        Role roleDB = roleRepository.findByName("ROLE_SUPPLIER").orElseThrow(() -> new NotFoundException("ROLE_SUPPLIER_NOT_FOUND"));
+
+        try {
+            userDB.setRole(roleDB);
+            userDB.setStatus(String.valueOf(Status.UPDATED));
+            userRepository.save(userDB);
+            return "Subscripcion pagada correctamente";
+        } catch (Exception e) {
+            throw new InternalServerErrorException("BUY_SUBSCRIPTION_ERROR");
         }
     }
 }

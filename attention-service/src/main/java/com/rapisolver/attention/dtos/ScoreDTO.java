@@ -9,5 +9,6 @@ public class ScoreDTO {
     private Long id;
     private Integer mark;
     private String note;
+    private String status;
     private UserAttentionDTO userAttention;
 }

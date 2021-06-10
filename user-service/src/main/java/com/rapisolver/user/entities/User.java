@@ -36,12 +36,12 @@ public class User {
     @Column(length = 9, nullable = false)
     private String phone;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date birthdate;
 
     @Column(nullable = false)
-    private Status status;
+    private String status;
 
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

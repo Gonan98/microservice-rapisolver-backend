@@ -7,5 +7,5 @@ public interface CrudService<C, R, ID> {
     List<R> getAll() throws RuntimeException;
     R getById(ID id) throws RuntimeException;
     R update(ID id, C t) throws RuntimeException;
-    String deleteById(ID id) throws RuntimeException;
+    R deleteById(ID id) throws RuntimeException;
 }

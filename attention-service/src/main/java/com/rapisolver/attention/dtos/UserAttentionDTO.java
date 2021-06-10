@@ -11,5 +11,6 @@ public class UserAttentionDTO {
     private Long id;
     private BigDecimal price;
     private String detail;
+    private String status;
     private AttentionDTO attention;
 }
