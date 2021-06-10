@@ -20,7 +20,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 30)
+    @Column(length = 30, unique = true)
     private String name;
 
     @Column(nullable = true, length = 50)
@@ -30,8 +30,8 @@ public class Category {
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
-    @Column(nullable = false)
-    private Status status;
+    @Column(nullable = false, length = 10)
+    private String status;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private List<Attention> attentions;

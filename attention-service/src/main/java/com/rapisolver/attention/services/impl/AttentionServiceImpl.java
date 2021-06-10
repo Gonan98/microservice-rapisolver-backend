@@ -40,7 +40,7 @@ public class AttentionServiceImpl implements AttentionService {
             Attention attention = new Attention();
             attention.setName(t.getName());
             attention.setCategory(categoryDB);
-            attention.setStatus(Status.CREATED);
+            attention.setStatus(String.valueOf(Status.CREATED));
             attention.setCreatedAt(new Date());
             attention = attentionRepository.save(attention);
             return mapper.map(attention, AttentionDTO.class);
@@ -70,7 +70,7 @@ public class AttentionServiceImpl implements AttentionService {
         try {
             attentionDB.setName(t.getName());
             attentionDB.setCategory(categoryDB);
-            attentionDB.setStatus(Status.UPDATED);
+            attentionDB.setStatus(String.valueOf(Status.UPDATED));
             attentionDB = attentionRepository.save(attentionDB);
             return mapper.map(attentionDB, AttentionDTO.class);
         } catch (Exception e) {
@@ -80,13 +80,13 @@ public class AttentionServiceImpl implements AttentionService {
 
     @Transactional
     @Override
-    public String deleteById(Long id) throws RuntimeException {
+    public AttentionDTO deleteById(Long id) throws RuntimeException {
         Attention attentionDB = attentionRepository.findById(id).orElseThrow(() -> new NotFoundException("Atencion a eliminar no encontrada"));
 
         try {
-            attentionDB.setStatus(Status.DELETED);
-            attentionRepository.save(attentionDB);
-            return "Atencion eliminada correctamente";
+            attentionDB.setStatus(String.valueOf(Status.DELETED));
+            attentionDB = attentionRepository.save(attentionDB);
+            return mapper.map(attentionDB, AttentionDTO.class);
         } catch (Exception e) {
             throw new InternalServerErrorException("DELETE_ATTENTION_ERROR");
         }

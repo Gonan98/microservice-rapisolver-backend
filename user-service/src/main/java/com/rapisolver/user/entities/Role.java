@@ -29,7 +29,7 @@ public class Role {
     private boolean canPublish;
 
     @Column(nullable = false)
-    private Status status;
+    private String status;
 
     @Column(name = "created_at", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

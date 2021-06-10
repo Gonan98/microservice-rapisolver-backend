@@ -1,6 +1,5 @@
 package com.rapisolver.user.dtos;
 
-import com.rapisolver.user.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +15,7 @@ public class UserDTO {
     private String password;
     private String phone;
     private Date birthdate;
-    private Status status;
+    private String status;
     private Date createdAt;
     private RoleDTO role;
 }

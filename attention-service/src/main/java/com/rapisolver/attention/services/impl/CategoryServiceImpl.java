@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
             category.setName(t.getName());
             category.setDescription(t.getDescription());
             category.setCreatedAt(new Date());
-            category.setStatus(Status.CREATED);
+            category.setStatus(String.valueOf(Status.CREATED));
             category = categoryRepository.save(category);
             return mapper.map(category, CategoryDTO.class);
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
         try {
             categoryDB.setName(t.getName());
             categoryDB.setDescription(t.getDescription());
-            categoryDB.setStatus(Status.UPDATED);
+            categoryDB.setStatus(String.valueOf(Status.UPDATED));
             categoryDB = categoryRepository.save(categoryDB);
             return mapper.map(categoryDB, CategoryDTO.class);
         } catch (Exception e) {
@@ -72,12 +72,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    public String deleteById(Long aLong) throws RuntimeException {
+    public CategoryDTO deleteById(Long aLong) throws RuntimeException {
         Category categoryDB = categoryRepository.findById(aLong).orElseThrow(() -> new NotFoundException("Categoria con id="+aLong+" no encontrada"));
         try {
-            categoryDB.setStatus(Status.DELETED);
-            categoryRepository.save(categoryDB);
-            return "Categoria eliminada correctamente";
+            categoryDB.setStatus(String.valueOf(Status.DELETED));
+            categoryDB = categoryRepository.save(categoryDB);
+            return mapper.map(categoryDB, CategoryDTO.class);
         } catch (Exception e) {
             throw new InternalServerErrorException("DELETE_CATEGORY_ERROR");
         }

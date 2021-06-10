@@ -10,6 +10,6 @@ public interface UserService {
     UserDTO create(CreateUserDTO createUserDTO) throws RuntimeException;
     List<UserDTO> getAll() throws RuntimeException;
     UserDTO getById(Long id) throws RuntimeException;
-    String deleteById(Long id) throws RuntimeException;
-
+    UserDTO deleteById(Long id) throws RuntimeException;
+    String buySubscription(Long id) throws RuntimeException;
 }

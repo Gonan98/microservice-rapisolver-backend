@@ -47,9 +47,10 @@ public class ScoreServiceImpl implements ScoreService {
             Score score = new Score();
             score.setMark(t.getMark());
             score.setNote(t.getNote());
-            score.setStatus(Status.CREATED);
+            score.setStatus(String.valueOf(Status.CREATED));
             score.setCreatedAt(new Date());
             score.setUserAttention(userAttentionDB);
+            score.setUserId(t.getUserId());
             score = repository.save(score);
             return mapper.map(score, ScoreDTO.class);
         } catch (Exception e) {
@@ -79,7 +80,7 @@ public class ScoreServiceImpl implements ScoreService {
             scoreDB.setMark(t.getMark());
             scoreDB.setNote(t.getNote());
             scoreDB.setUserAttention(userAttentionDB);
-            scoreDB.setStatus(Status.UPDATED);
+            scoreDB.setStatus(String.valueOf(Status.UPDATED));
             scoreDB = repository.save(scoreDB);
             return mapper.map(scoreDB, ScoreDTO.class);
         } catch (Exception e) {
@@ -89,13 +90,13 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Transactional
     @Override
-    public String deleteById(Long aLong) throws RuntimeException {
+    public ScoreDTO deleteById(Long aLong) throws RuntimeException {
         Score scoreDB = repository.findById(aLong).orElseThrow(() -> new NotFoundException("SCORE_NOT_FOUND"));
 
         try {
-            scoreDB.setStatus(Status.DELETED);
-            repository.save(scoreDB);
-            return "Calificacion eliminada correctamente";
+            scoreDB.setStatus(String.valueOf(Status.DELETED));
+            scoreDB = repository.save(scoreDB);
+            return mapper.map(scoreDB, ScoreDTO.class);
         } catch (Exception e) {
             throw new InternalServerErrorException("DELETE_SCORE_ERROR");
         }

@@ -8,6 +8,7 @@ import com.rapisolver.attention.services.ScoreService;
 import com.rapisolver.attention.services.UserAttentionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,33 +20,28 @@ public class UserAttentionController {
     @Autowired
     private UserAttentionService service;
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public RapisolverResponse<UserAttentionDTO> create(@RequestBody CreateUserAttentionDTO createUserAttentionDTO) throws RuntimeException {
-        return new RapisolverResponse<>(201,"CREATED","Categoria creada correctamente", service.create(createUserAttentionDTO));
+        return new RapisolverResponse<>(201,"Atencion de proveedor creada correctamente", service.create(createUserAttentionDTO));
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public RapisolverResponse<List<UserAttentionDTO>> getAll() throws RuntimeException {
-        return new RapisolverResponse<>(200,"OK","Lista de categorias",service.getAll());
+        return new RapisolverResponse<>(200,"Lista de atenciones de proveedor", service.getAll());
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     public RapisolverResponse<UserAttentionDTO> getById(@PathVariable Long id) throws RuntimeException {
-        return new RapisolverResponse<>(200,"OK","Categoria encontrada", service.getById(id));
+        return new RapisolverResponse<>(200,"Atencion de proveedor encontrada", service.getById(id));
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
-    public RapisolverResponse<UserAttentionDTO> update(@PathVariable Long id, CreateUserAttentionDTO createUserAttentionDTO) throws RuntimeException {
-        return new RapisolverResponse<>(200,"OK","Categoria actualizada correctamente", service.update(id, createUserAttentionDTO));
+    public RapisolverResponse<UserAttentionDTO> update(@PathVariable Long id, @RequestBody CreateUserAttentionDTO createUserAttentionDTO) throws RuntimeException {
+        return new RapisolverResponse<>(200,"Atencion de proveedor actualizada", service.update(id, createUserAttentionDTO));
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/{id}")
-    public RapisolverResponse<String> deleteById(@PathVariable Long id) throws RuntimeException {
-        return new RapisolverResponse<>(200,"OK",service.deleteById(id));
+    public RapisolverResponse<UserAttentionDTO> deleteById(@PathVariable Long id) throws RuntimeException {
+        return new RapisolverResponse<>(200,"Atencion de proveedor eliminada", service.deleteById(id));
     }
 }
