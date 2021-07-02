@@ -16,17 +16,17 @@ spring:
         - id: user-service
           uri: lb://user-service
           predicates:
-            - Path=api/v1/users/**
-            - Path=api/v1/roles/**
+            - Path=api/users/**
+            - Path=api/roles/**
         - id: attention-service
           uri: lb://attention-service
           predicates:
-            - Path=api/v1/attentions/**
-            - Path=api/v1/scores/**
-            - Path=api/v1/user-attentions/**
-            - Path=api/v1/categories/**
+            - Path=api/attentions/**
+            - Path=api/scores/**
+            - Path=api/user-attentions/**
+            - Path=api/categories/**
         - id: reservation-service
           uri: lb://reservation-service
           predicates:
-            - Path=api/v1/reservations/**
-            - Path=api/v1/locations/**
+            - Path=api/reservations/**
+            - Path=api/locations/**
