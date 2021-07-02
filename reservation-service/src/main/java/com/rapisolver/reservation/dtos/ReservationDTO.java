@@ -1,5 +1,7 @@
 package com.rapisolver.reservation.dtos;
 
+import com.rapisolver.reservation.model.UserAttentionDTO;
+import com.rapisolver.reservation.model.UserDTO;
 import com.rapisolver.reservation.util.ReservationStatus;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +16,6 @@ public class ReservationDTO {
     private String address;
     private ReservationStatus reservationStatus;
     private LocationDTO location;
-    //private UserAttentionDTO userAttention;
-    //private UserDTO user;
+    private Long userAttentionId;
+    private Long userId;
 }

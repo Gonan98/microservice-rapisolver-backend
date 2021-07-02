@@ -13,6 +13,6 @@ public class CreateReservationDTO {
     private String address;
     private ReservationStatus reservationStatus;
     private Long locationId;
-    //private Long userAttentionId;
-    //private Long userId;
+    private Long userAttentionId;
+    private Long userId;
 }

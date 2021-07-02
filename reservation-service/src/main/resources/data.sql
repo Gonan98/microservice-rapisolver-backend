@@ -1,0 +1,5 @@
+INSERT INTO LOCATIONS(country, state, city) VALUES ('PERU','LIMA','LIMA');
+INSERT INTO LOCATIONS(country, state, city) VALUES ('PERU','LIMA','BARRANCO');
+INSERT INTO LOCATIONS(country, state, city) VALUES ('PERU','LIMA','MIRAFLORES');
+INSERT INTO LOCATIONS(country, state, city) VALUES ('PERU','LIMA','SURCO');
+INSERT INTO LOCATIONS(country, state, city) VALUES ('PERU','LIMA','LOS OLIVOS');
