@@ -32,7 +32,7 @@ public class LocationServiceImpl implements LocationService {
             location.setCountry(t.getCountry());
             location.setState(t.getState());
             location.setCity(t.getCity());
-            location.setStatus(Status.CREATED);
+            location.setStatus(String.valueOf(Status.CREATED));
             location.setCreatedAt(new Date());
             location = repository.save(location);
             return mapper.map(location, LocationDTO.class);
@@ -61,7 +61,7 @@ public class LocationServiceImpl implements LocationService {
             locationDB.setCountry(t.getCountry());
             locationDB.setState(t.getState());
             locationDB.setCity(t.getCity());
-            locationDB.setStatus(Status.UPDATED);
+            locationDB.setStatus(String.valueOf(Status.UPDATED));
             locationDB = repository.save(locationDB);
             return mapper.map(locationDB, LocationDTO.class);
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class LocationServiceImpl implements LocationService {
         Location locationDB = repository.findById(aLong).orElseThrow(() -> new NotFoundException("Location con id="+aLong+" no encontrado"));
 
         try {
-            locationDB.setStatus(Status.DELETED);
+            locationDB.setStatus(String.valueOf(Status.DELETED));
             repository.save(locationDB);
             return "Localizacion eliminada correctamente";
         } catch (Exception e) {

@@ -37,7 +37,7 @@ public class Reservation {
     private ReservationStatus reservationStatus;
 
     @Column(nullable = false)
-    private Status status;
+    private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
@@ -49,11 +49,11 @@ public class Reservation {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Transient
+    /*@Transient
     private UserAttentionDTO userAttention;
 
     @Transient
-    private UserDTO user;
+    private UserDTO user;*/
 
     /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_attention_id", nullable = false)

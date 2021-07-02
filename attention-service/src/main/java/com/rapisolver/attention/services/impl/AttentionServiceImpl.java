@@ -1,5 +1,6 @@
 package com.rapisolver.attention.services.impl;
 
+import com.rapisolver.attention.client.UserClient;
 import com.rapisolver.attention.dtos.AttentionDTO;
 import com.rapisolver.attention.dtos.CreateAttentionDTO;
 import com.rapisolver.attention.entities.Attention;

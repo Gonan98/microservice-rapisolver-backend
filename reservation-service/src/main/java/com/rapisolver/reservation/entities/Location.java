@@ -34,7 +34,7 @@ public class Location {
     private Date createdAt;
 
     @Column(nullable = false)
-    private Status status;
+    private String status;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")
     private List<Reservation> reservations;

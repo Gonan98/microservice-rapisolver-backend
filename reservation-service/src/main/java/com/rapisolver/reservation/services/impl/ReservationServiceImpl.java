@@ -1,5 +1,6 @@
 package com.rapisolver.reservation.services.impl;
 
+import com.rapisolver.reservation.client.AttentionClient;
 import com.rapisolver.reservation.dtos.CreateReservationDTO;
 import com.rapisolver.reservation.dtos.ReservationDTO;
 import com.rapisolver.reservation.entities.Location;
@@ -31,9 +32,14 @@ public class ReservationServiceImpl implements ReservationService {
     @Autowired
     private ReservationRepository repository;
 
+    @Autowired
+    private AttentionClient attentionClient;
+
     @Override
     public ReservationDTO create(CreateReservationDTO t) throws RuntimeException {
         Location locationDB = locationRepository.findById(t.getLocationId()).orElseThrow(() -> new NotFoundException("LOCATION_NOT_FOUND"));
+        if (attentionClient.getUserAttention(t.getUserAttentionId()).getData() == null)
+            throw new NotFoundException("La atencion del proveedor no existe");
 
         try {
             Reservation reservation = new Reservation();
@@ -42,12 +48,13 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.setLocation(locationDB);
             reservation.setCreatedAt(new Date());
             reservation.setReservationStatus(ReservationStatus.ACTIVE);
-            reservation.setStatus(Status.CREATED);
+            reservation.setStatus(String.valueOf(Status.CREATED));
             reservation.setUserAttentionId(t.getUserAttentionId());
             reservation.setUserId(t.getUserId());
             reservation = repository.save(reservation);
             return mapper.map(reservation, ReservationDTO.class);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new InternalServerErrorException("CREATE_RESERVATION_ERROR");
         }
     }
@@ -70,7 +77,7 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservationDB = repository.findById(aLong).orElseThrow(() -> new NotFoundException("Reserva con id="+aLong+" no encontrada"));
 
         try {
-            reservationDB.setStatus(Status.UPDATED);
+            reservationDB.setStatus(String.valueOf(Status.UPDATED));
             reservationDB.setDatetime(t.getDatetime());
             reservationDB.setAddress(t.getAddress());
             reservationDB.setLocation(locationDB);
@@ -87,7 +94,7 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservationDB = repository.findById(aLong).orElseThrow(() -> new NotFoundException("Reserva con id="+aLong+" no encontrada"));
 
         try {
-            reservationDB.setStatus(Status.DELETED);
+            reservationDB.setStatus(String.valueOf(Status.DELETED));
             reservationDB.setReservationStatus(ReservationStatus.CANCELLED);
             repository.save(reservationDB);
             return "Reserva eliminada correctamente";
