@@ -9,35 +9,36 @@ server:
 # http://localhost:8093/h2-console
 # Enabling H2 Console
 spring:
-  h2:
-    console:
-      enabled: true
   # ===============================
   # DB
   # ===============================
   datasource:
-    url: jdbc:h2:mem:reservationdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
-    platform: h2
-    username: sa
-    password:
+    url: jdbc:postgresql://localhost/reservationsdb
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: admin
+    initialization-mode: always
 
   # ===============================
   # JPA / HIBERNATE
   # ===============================
   jpa:
+    database: postgresql
     show-sql: true
+    generate-ddl: true
     hibernate:
       ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
-        show_sql: true
-        use_sql_comments: false
-        format_sql: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+      
 logging:
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
 # Eureka Client
 eureka:
   client:

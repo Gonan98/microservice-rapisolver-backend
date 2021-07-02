@@ -43,6 +43,8 @@ public class ReservationServiceImpl implements ReservationService {
             reservation.setCreatedAt(new Date());
             reservation.setReservationStatus(ReservationStatus.ACTIVE);
             reservation.setStatus(Status.CREATED);
+            reservation.setUserAttentionId(t.getUserAttentionId());
+            reservation.setUserId(t.getUserId());
             reservation = repository.save(reservation);
             return mapper.map(reservation, ReservationDTO.class);
         } catch (Exception e) {
